@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="Christopher Michael Lauw, M.Kom">
+<meta name="copyright" content="© 2026 Christopher Michael Lauw, M.Kom">
+<title>Praktikum Pengolahan Data Dasar dengan Microsoft Excel</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--g:#1d6f42;--hd:#0e3b25;--h:#0e3b25;--gl:#e3f1e8;--ink:#14231b;--bg:#f6f9f7;--card:#fff;--line:#cfdcd4;--amb:#f5b833;--bad:#c0392b;--ok:#1d6f42;--mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;--sans:'Bricolage Grotesque',system-ui,sans-serif}
+[data-theme=dark]{--g:#3fbf7f;--hd:#0a2217;--h:#bfe9d1;--gl:#17301f;--ink:#e4efe8;--bg:#0c1410;--card:#121d17;--line:#2a3d32;--bad:#ff8a7a;--ok:#4fd68c}
+*{box-sizing:border-box}
+body{margin:0;padding-bottom:76px;font:16px/1.65 var(--sans);color:var(--ink);background-color:var(--bg);background-image:linear-gradient(to right,rgba(127,160,140,.13) 1px,transparent 1px),linear-gradient(rgba(127,160,140,.13) 1px,transparent 1px);background-size:96px 32px}
+header{background:var(--hd);color:#fff;padding:22px 16px}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+header .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:0}
+h1{font-size:clamp(1.3rem,3.4vw,2rem);margin:0;line-height:1.2;font-weight:800}
+header p{margin:4px 0 0;opacity:.8;font-size:.95rem}
+h2{font-size:1.5rem;color:var(--h);margin:28px 0 8px}
+h3{font-size:1.1rem;color:var(--h);margin:0 0 6px}
+button,input,select{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,td:focus-visible,select:focus-visible{outline:3px solid var(--amb);outline-offset:1px}
+.btn{background:var(--g);color:#fff;border:0;border-radius:6px;padding:8px 16px;font-weight:700}
+[data-theme=dark] .btn{color:#06130c}
+.btn.alt{background:transparent;color:var(--g);border:2px solid var(--g)}
+#theme{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5);border-radius:6px;padding:6px 12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;margin:12px 0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.sc{overflow-x:auto}
+table{border-collapse:collapse;width:100%}
+th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;font-size:.95rem}
+th{background:var(--gl);color:var(--h);font-weight:700}
+.xl td,.xl th{font-family:var(--mono);font-size:.88rem;white-space:nowrap}
+.xl th:first-child{text-align:center;width:36px}
+.xl td.n{text-align:right}
+.xl td[data-a]{cursor:pointer}
+.xl td[data-a]:hover{background:var(--gl)}
+.xl td.sel{outline:3px solid var(--amb);outline-offset:-3px;background:var(--gl)}
+.xl td.ref{background:rgba(245,184,51,.35)}
+.xl td.hd{font-weight:700;background:var(--gl);color:var(--h)}
+#cg td{height:34px;width:25%;cursor:pointer}
+#cg td.sel{background:var(--amb)}
+#cg td.rng{background:rgba(245,184,51,.4)}
+code,.f{font-family:var(--mono);background:var(--gl);padding:1px 6px;border-radius:4px;font-size:.9em}
+.fx{font-family:var(--mono);background:var(--hd);color:#fff;border-radius:6px;padding:8px 12px;min-height:40px;margin:8px 0}
+.info{min-height:3.2em;margin-top:8px}
+.stage{position:relative;display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin:12px 0}
+.cell{min-width:92px;border:2px solid var(--line);background:var(--card);border-radius:4px;padding:6px 10px;text-align:center;font-family:var(--mono)}
+.cell small{display:block;color:var(--g);font-weight:600}
+.cell b{font-size:1.2rem}
+.chip{position:absolute;z-index:3;background:var(--amb);color:#14231b;border-radius:99px;padding:2px 12px;font-family:var(--mono);font-weight:700;pointer-events:none}
+ol.st{padding-left:0;list-style:none;counter-reset:s}
+ol.st li{counter-increment:s;position:relative;padding:10px 12px 10px 52px;margin:8px 0;background:var(--card);border:1px solid var(--line);border-radius:8px}
+ol.st li::before{content:counter(s);position:absolute;left:12px;top:10px;width:28px;height:28px;border-radius:50%;background:var(--g);color:#fff;display:grid;place-items:center;font-weight:800}
+[data-theme=dark] ol.st li::before{color:#06130c}
+.tip{border-left:4px solid var(--amb);padding:4px 12px;margin:8px 0;background:rgba(245,184,51,.12)}
+input.in{width:100%;min-width:150px;font-family:var(--mono);font-size:.88rem;padding:5px 8px;border:2px solid var(--line);border-radius:4px;background:var(--card);color:var(--ink)}
+input.in.ok{border-color:var(--ok)}
+input.in.bad{border-color:var(--bad)}
+input[type=number]{width:110px;padding:5px 8px;border:2px solid var(--line);border-radius:4px;background:var(--card);color:var(--ink)}
+ul.fb{list-style:none;padding:0}
+ul.fb li{padding:6px 10px;margin:4px 0;border-left:4px solid var(--line);font-size:.93rem}
+ul.fb li.ok{border-color:var(--ok)}
+ul.fb li.bad{border-color:var(--bad)}
+ul.fb li b.ok{color:var(--ok)}
+ul.fb li b.bad{color:var(--bad)}
+.dm{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.dm button[aria-pressed=true]{background:var(--g);color:#fff}
+[data-theme=dark] .dm button[aria-pressed=true]{color:#06130c}
+canvas{max-height:300px}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;gap:2px;background:#d8dedb;padding:8px 8px 0;border-top:1px solid #9aa8a0;z-index:10;overflow-x:auto}
+[data-theme=dark] nav{background:#1a2820;border-color:#2a3d32}
+.tab{flex:0 1 auto;white-space:nowrap;border:1px solid #9aa8a0;border-bottom:0;border-radius:6px 6px 0 0;background:#eef1ef;color:#2b3a32;padding:9px 14px 10px;font-weight:600;font-size:.92rem}
+[data-theme=dark] .tab{background:#233629;color:#bcd3c5;border-color:#2a3d32}
+.tab[aria-selected=true]{background:var(--card);color:var(--g);border-bottom:4px solid var(--g);font-weight:800}
+@media(max-width:520px){.tab{padding:9px 9px 10px;font-size:.8rem}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div><h1>Praktikum Pengolahan Data Dasar dengan Microsoft Excel</h1><p>Informatika &middot; belajar mandiri atau bersama guru di kelas</p></div><button id="theme" aria-label="Ganti tema terang/gelap">Tema</button></div></header>
+
+<main class="wrap">
+
+<!-- 1. TEORI -->
+<section id="teori">
+<h2>Teori: mengenal lembar kerja</h2>
+<div class="card"><h3>Baris, kolom, sel, dan range</h3>
+<p>Kolom diberi huruf (A, B, C), baris diberi angka (1, 2, 3). Perpotongan keduanya disebut <b>sel</b> dan alamatnya gabungan huruf+angka, misalnya <code>B3</code>. Kumpulan sel yang berurutan disebut <b>range</b>, ditulis <code>A1:C2</code>. Coba: klik satu sel, lalu klik sel lain untuk membentuk range.</p>
+<table id="cg" class="xl"></table><p id="cinfo" class="info"></p></div>
+
+<div class="grid2">
+<div class="card"><h3>Tipe data</h3><div class="sc"><table><tr><th>Tipe</th><th>Contoh</th><th>Ciri</th></tr>
+<tr><td>Teks</td><td>Budi</td><td>Rata kiri, tidak bisa dijumlah</td></tr>
+<tr><td>Angka</td><td>85</td><td>Rata kanan, bisa dihitung</td></tr>
+<tr><td>Tanggal</td><td>17/08/2026</td><td>Bisa dikurangi untuk selisih hari</td></tr>
+<tr><td>Mata uang</td><td>Rp5.000</td><td>Angka dengan format Rp</td></tr></table></div></div>
+<div class="card"><h3>Operator aritmatika</h3><div class="sc"><table><tr><th>Operator</th><th>Fungsi</th><th>Contoh</th></tr>
+<tr><td>+</td><td>Tambah</td><td><code>=A1+B1</code></td></tr>
+<tr><td>-</td><td>Kurang</td><td><code>=A1-B1</code></td></tr>
+<tr><td>*</td><td>Kali</td><td><code>=A1*B1</code></td></tr>
+<tr><td>/</td><td>Bagi</td><td><code>=A1/B1</code></td></tr></table></div>
+<p class="tip">Setiap rumus selalu diawali tanda <code>=</code>.</p></div>
+</div>
+
+<div class="card"><h3>Fungsi statistika dasar</h3><div class="sc"><table><tr><th>Fungsi</th><th>Kegunaan</th><th>Contoh</th></tr>
+<tr><td>SUM</td><td>Menjumlahkan semua nilai</td><td><code>=SUM(B2:D2)</code></td></tr>
+<tr><td>AVERAGE</td><td>Rata-rata</td><td><code>=AVERAGE(B2:D2)</code></td></tr>
+<tr><td>COUNT</td><td>Menghitung banyak sel berisi angka</td><td><code>=COUNT(B2:B7)</code></td></tr>
+<tr><td>MAX</td><td>Nilai tertinggi</td><td><code>=MAX(B2:B7)</code></td></tr>
+<tr><td>MIN</td><td>Nilai terendah</td><td><code>=MIN(B2:B7)</code></td></tr></table></div></div>
+
+<div class="card"><h3>Fungsi logika: IF</h3>
+<p><b>IF tunggal</b> memilih satu dari dua hasil: <code>=IF(syarat, jika_benar, jika_salah)</code>. <b>IF bercabang</b> menaruh IF lain di bagian "jika salah". Ubah nilai A1 di bawah dan lihat hasilnya.</p>
+<label>Nilai A1: <input type="number" id="ifv" value="80" min="0" max="100"></label>
+<div class="grid2" style="margin-top:8px">
+<div><code>=IF(A1&gt;=75,"Lulus","Remedial")</code><div class="fx" id="if1"></div></div>
+<div><code>=IF(A1&gt;=85,"A",IF(A1&gt;=75,"B","C"))</code><div class="fx" id="if2"></div></div></div></div>
+
+<div class="card"><h3>Lihat rumus bekerja: =A1+B1</h3>
+<p>Ubah isi A1 dan B1, lalu klik tombol.</p>
+<div class="stage" id="s1">
+<div class="cell" id="a1"><small>A1</small><input type="number" id="ia" value="15" style="width:72px"></div>
+<div class="cell" id="b1"><small>B1</small><input type="number" id="ib" value="25" style="width:72px"></div>
+<div class="cell" id="c1"><small>C1</small><b id="c1v">?</b></div></div>
+<div class="fx" id="fb1">&nbsp;</div>
+<button class="btn" id="run1">Jalankan Rumus</button></div>
+</section>
+
+<!-- 2. GURU -->
+<section id="guru" hidden>
+<h2>Praktikum bersama guru: laporan nilai akhir siswa</h2>
+<p>Tugas kita: menghitung total, rata-rata, dan menentukan siswa yang <b>Lulus</b> atau <b>Remedial</b> (KKM = 75). <b>Klik sel</b> pada tabel untuk melihat rumus beserta alasannya.</p>
+<div class="card"><div class="sc"><table class="xl" id="sim"></table></div>
+<div class="fx" id="gf">Klik sebuah sel&hellip;</div><p class="info" id="gx"></p></div>
+<div class="card"><h3>Grafik rata-rata siswa terhadap KKM</h3><canvas id="ch"></canvas></div>
+<h3>Langkah demi langkah</h3>
+<ol class="st">
+<li><b>Siapkan data.</b> Ketik nama dan nilai Tugas, UTS, UAS pada kolom A sampai D. Satu baris = satu siswa, satu kolom = satu jenis data. Inilah aturan dasar tabel yang rapi.</li>
+<li><b>Hitung total dengan SUM.</b> Di E2 ketik <code>=SUM(B2:D2)</code>. Kita pakai SUM karena menulis <code>=B2+C2+D2</code> melelahkan kalau komponennya banyak. Seret pegangan sel ke bawah agar rumus tersalin ke semua siswa.</li>
+<li><b>Hitung rata-rata dengan AVERAGE.</b> Di F2 ketik <code>=AVERAGE(B2:D2)</code>. Rata-rata dipakai karena kelulusan dinilai dari kemampuan "rata-rata" tiga komponen, bukan jumlahnya.</li>
+<li><b>Tentukan status dengan IF.</b> Di G2 ketik <code>=IF(F2&gt;=75,"Lulus","Remedial")</code>. Komputer tidak bisa "menimbang", jadi kita beri syarat jelas: jika rata-rata sama dengan atau di atas KKM maka Lulus, selain itu Remedial.</li>
+<li><b>Ringkas kelas.</b> Di bawah tabel pakai AVERAGE, MAX, dan MIN pada range F2:F7 untuk melihat gambaran kelas.</li></ol>
+<p class="tip">Tanya siswa: apa yang berubah pada kolom G kalau nilai UAS Budi diubah menjadi 95? Ubah, lalu amati.</p>
+</section>
+
+<!-- 3. LATIHAN -->
+<section id="mandiri" hidden>
+<h2>Latihan mandiri: rekapitulasi penjualan toko</h2>
+<p>Aturan toko: jika <b>Total Harga &ge; Rp100.000</b>, pembeli mendapat potongan sebesar persen pada kolom Diskon. Jika kurang, potongan Rp0. Isi kolom E, F, G dengan <b>rumus</b> (contoh <code>=B2*C2</code>) atau angka, lalu klik <b>Cek Jawaban</b>.</p>
+<div class="card"><div class="sc"><table class="xl" id="rt"></table></div>
+<p><b>d. Omzet</b> (dari kolom G, Total Pembayaran Akhir):</p>
+<div class="grid2" id="sm"></div>
+<p><button class="btn" id="chk">Cek Jawaban</button> <button class="btn alt" id="rst">Ulangi</button> <b id="score"></b></p>
+<ul class="fb" id="fbk"></ul></div>
+</section>
+
+<!-- 4. ANIMASI -->
+<section id="anim" hidden>
+<h2>Animasi logika: aliran data saat rumus dihitung</h2>
+<p>Pilih rumus, lalu amati langkah Excel membaca sel, mengambil nilai, dan menghasilkan jawaban.</p>
+<div class="card">
+<div class="dm" id="dm"></div>
+<div class="fx" id="af">&nbsp;</div>
+<div class="stage" id="as"></div>
+<div class="fx" id="ao" style="background:var(--g)">Operasi: &ndash;</div>
+<p class="info" id="at"></p>
+<button class="btn" id="arun">Putar Animasi</button></div>
+</section>
+</main>
+
+<footer class="wrap" style="text-align:center;padding:24px 16px 8px;font-size:.88rem;opacity:.85">
+<p style="margin:0">&copy; 2026 <b>Christopher Michael Lauw, M.Kom</b>. Hak cipta dilindungi undang-undang.</p>
+<p style="margin:4px 0 0">Media pembelajaran ini boleh digunakan untuk kegiatan belajar-mengajar. Dilarang memperbanyak atau memperjualbelikan tanpa izin tertulis dari pencipta.</p>
+</footer>
+
+<nav role="tablist" aria-label="Modul">
+<button class="tab" role="tab" data-t="teori" aria-selected="true">Teori</button>
+<button class="tab" role="tab" data-t="guru" aria-selected="false">Praktikum Guru</button>
+<button class="tab" role="tab" data-t="mandiri" aria-selected="false">Latihan Mandiri</button>
+<button class="tab" role="tab" data-t="anim" aria-selected="false">Animasi</button>
+</nav>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const L='ABCDEFG',rp=n=>'Rp'+Math.round(n).toLocaleString('id-ID');
+const hasG=typeof gsap!=='undefined';
+if(hasG&&matchMedia('(prefers-reduced-motion:reduce)').matches)gsap.globalTimeline.timeScale(20);
+document.documentElement.dataset.theme=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
+$('#theme').onclick=()=>{const d=document.documentElement;d.dataset.theme=d.dataset.theme==='dark'?'light':'dark'};
+
+/* Navigasi tab */
+let chartDone=false;
+$$('.tab').forEach(b=>b.onclick=()=>{
+  $$('.tab').forEach(x=>x.setAttribute('aria-selected',x===b));
+  $$('section').forEach(s=>s.hidden=s.id!==b.dataset.t);
+  scrollTo(0,0);
+  if(b.dataset.t==='guru'&&!chartDone){drawChart();chartDone=true}
+});
+
+/* ===== MODUL 1 ===== */
+(()=>{const g=$('#cg'),info=$('#cinfo');let a=null;
+ let h='<tr><th></th>'+[...'ABCD'].map(c=>`<th>${c}</th>`).join('')+'</tr>';
+ for(let r=1;r<=4;r++)h+=`<tr><th>${r}</th>`+[0,1,2,3].map(c=>`<td data-c="${c}" data-r="${r}"></td>`).join('')+'</tr>';
+ g.innerHTML=h;
+ g.onclick=e=>{const t=e.target.closest('td');if(!t)return;const c=+t.dataset.c,r=+t.dataset.r;
+  $$('td',g).forEach(x=>x.className='');
+  if(!a){a=[c,r];t.className='sel';info.innerHTML=`Sel <b>${L[c]}${r}</b> = kolom ${L[c]} dan baris ${r}. Klik sel lain untuk membentuk range.`}
+  else{const c1=Math.min(a[0],c),r1=Math.min(a[1],r),c2=Math.max(a[0],c),r2=Math.max(a[1],r);
+   $$('td',g).forEach(x=>{const cc=+x.dataset.c,rr=+x.dataset.r;if(cc>=c1&&cc<=c2&&rr>=r1&&rr<=r2)x.className='rng'});
+   info.innerHTML=`Range <b>${L[c1]}${r1}:${L[c2]}${r2}</b> = ${(c2-c1+1)*(r2-r1+1)} sel (${r2-r1+1} baris &times; ${c2-c1+1} kolom).`;a=null}};
+ g.querySelector('td').click();
+})();
+$('#ifv').oninput=()=>{const v=+$('#ifv').value;$('#if1').textContent=v>=75?'Lulus':'Remedial';$('#if2').textContent=v>=85?'A':v>=75?'B':'C'};
+$('#ifv').oninput();
+
+function fly(from,to,txt,box){const b=box.getBoundingClientRect(),f=from.getBoundingClientRect(),t=to.getBoundingClientRect();
+ const c=document.createElement('span');c.className='chip';c.textContent=txt;box.appendChild(c);
+ const x0=f.left-b.left+f.width/2-20,y0=f.top-b.top+f.height/2-10,x1=t.left-b.left+t.width/2-20,y1=t.top-b.top+t.height/2-10;
+ return gsap.fromTo(c,{x:x0,y:y0,opacity:0},{x:x1,y:y1,opacity:1,duration:.8,ease:'power2.inOut',onComplete:()=>c.remove()})}
+$('#run1').onclick=()=>{
+ const A=+$('#ia').value,B=+$('#ib').value,box=$('#s1'),out=$('#c1v'),fb=$('#fb1');
+ if(!hasG){out.textContent=A+B;fb.textContent='=A1+B1';return}
+ gsap.killTweensOf('#fb1');out.textContent='?';fb.textContent='';
+ const tl=gsap.timeline(),pulse=(s)=>gsap.fromTo(s,{borderColor:'#f5b833',scale:1.12},{borderColor:'#cfdcd4',scale:1,duration:.7});
+ const o={n:0};
+ tl.to(fb,{duration:.9,text:'',onStart:()=>{let i=0;const s='=A1+B1',iv=setInterval(()=>{fb.textContent=s.slice(0,++i);if(i>=s.length)clearInterval(iv)},120)}})
+  .add(()=>pulse('#a1'),'+=.2').add(()=>fly($('#a1'),$('#c1'),A,box))
+  .add(()=>pulse('#b1'),'+=.9').add(()=>fly($('#b1'),$('#c1'),B,box))
+  .to(o,{n:A+B,duration:.9,delay:.9,onUpdate:()=>out.textContent=Math.round(o.n)})
+  .add(()=>{pulse('#c1');fb.textContent=`=A1+B1  →  ${A} + ${B} = ${A+B}`});
+};
+
+/* ===== MODUL 2 ===== */
+const S=[['Ani',80,75,85],['Budi',70,60,65],['Citra',90,85,88],['Dedi',60,70,55],['Eka',85,80,90],['Fani',75,72,78]]
+ .map(([n,t,u,a])=>{const tot=t+u+a,avg=tot/3;return [n,t,u,a,tot,avg,avg>=75?'Lulus':'Remedial']});
+(()=>{const T=$('#sim'),ex={};
+ let h='<tr><th></th>'+[...L].map(c=>`<th>${c}</th>`).join('')+'</tr><tr><th>1</th>'+['Nama','Tugas','UTS','UAS','Total','Rata-rata','Status'].map(x=>`<td class="hd">${x}</td>`).join('')+'</tr>';
+ S.forEach((r,i)=>{const n=i+2;h+=`<tr><th>${n}</th>`+r.map((v,c)=>{const a=L[c]+n,num=typeof v==='number';
+  if(c<4)ex[a]=['Data mentah',v,c?'Nilai yang diketik langsung, bukan rumus. Inilah bahan yang akan dihitung.':'Teks identitas siswa. Satu baris mewakili satu siswa.',null];
+  if(c===4)ex[a]=[`=SUM(B${n}:D${n})`,v,'SUM menjumlah semua angka dalam range. Lebih ringkas dan aman dari lupa menambah sel dibanding =B+C+D.',[1,n,3,n]];
+  if(c===5)ex[a]=[`=AVERAGE(B${n}:D${n})`,v.toFixed(2),'AVERAGE membagi total dengan banyak komponen. Kelulusan dinilai dari rata-rata ini.',[1,n,3,n]];
+  if(c===6)ex[a]=[`=IF(F${n}>=75,"Lulus","Remedial")`,v,'IF memeriksa syarat F >= 75 (KKM). Benar: tampil "Lulus"; salah: tampil "Remedial".',[5,n,5,n]];
+  return `<td data-a="${a}" tabindex="0" class="${num?'n':''}">${c===5?v.toFixed(2):v}</td>`}).join('')+'</tr>'});
+ [['Rata-rata kelas','AVERAGE',x=>x.reduce((p,q)=>p+q)/x.length],['Tertinggi','MAX',x=>Math.max(...x)],['Terendah','MIN',x=>Math.min(...x)]].forEach(([l,f,fn],i)=>{
+  const n=8+i,v=fn(S.map(r=>r[5]));h+=`<tr><th>${n}</th><td class="hd">${l}</td><td></td><td></td><td></td><td></td><td data-a="F${n}" tabindex="0" class="n">${v.toFixed(2)}</td><td></td></tr>`;
+  ex['F'+n]=[`=${f}(F2:F7)`,v.toFixed(2),`${f} dihitung dari seluruh rata-rata siswa (F2:F7) untuk melihat gambaran kelas.`,[5,2,5,7]]});
+ T.innerHTML=h;
+ const show=td=>{const a=td.dataset.a,e=ex[a];$$('td',T).forEach(x=>x.classList.remove('sel','ref'));td.classList.add('sel');
+  if(e[3])$$('td[data-a]',T).forEach(x=>{const c=L.indexOf(x.dataset.a[0]),r=+x.dataset.a.slice(1);if(c>=e[3][0]&&c<=e[3][2]&&r>=e[3][1]&&r<=e[3][3])x.classList.add('ref')});
+  $('#gf').textContent=`${a}: ${e[0]}`;$('#gx').innerHTML=`<b>Hasil: ${e[1]}</b>. ${e[2]}`};
+ T.onclick=e=>{const t=e.target.closest('td[data-a]');if(t)show(t)};
+ T.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){const t=e.target.closest('td[data-a]');if(t){e.preventDefault();show(t)}}};
+ show($('[data-a=G2]',T));
+})();
+function drawChart(){if(typeof Chart==='undefined')return;
+ Chart.defaults.color=getComputedStyle(document.body).color;
+ new Chart($('#ch'),{data:{labels:S.map(r=>r[0]),datasets:[
+  {type:'bar',label:'Rata-rata',data:S.map(r=>+r[5].toFixed(2)),backgroundColor:S.map(r=>r[5]>=75?'#1d9a5a':'#e08a2c')},
+  {type:'line',label:'KKM (75)',data:S.map(()=>75),borderColor:'#c0392b',borderDash:[6,4],pointRadius:0}]},
+  options:{maintainAspectRatio:false,scales:{y:{min:0,max:100}}}});
+ $('#ch').parentElement.style.height='340px'}
+
+/* ===== MODUL 3: evaluator rumus mini ===== */
+const D=[['Buku Tulis',5000,20,.05],['Pulpen',3000,15,.05],['Tas Sekolah',85000,3,.1],['Botol Minum',25000,4,.1],['Penggaris',4000,10,.05]];
+const SH={},EXP={};
+D.forEach(([n,h,j,d],i)=>{const r=i+2,tot=h*j,pot=tot>=100000?tot*d:0;
+ Object.assign(SH,{[`1,${r}`]:h,[`2,${r}`]:j,[`3,${r}`]:d,[`4,${r}`]:tot,[`5,${r}`]:pot,[`6,${r}`]:tot-pot});
+ EXP['E'+r]=[tot,`=B${r}*C${r}`,'Total sebelum diskon = Harga Satuan x Jumlah Terjual.'];
+ EXP['F'+r]=[pot,`=IF(E${r}>=100000,E${r}*D${r},0)`,'Gunakan IF: jika total >= 100000 maka potongan = total x persen diskon, jika tidak potongan 0.'];
+ EXP['G'+r]=[tot-pot,`=E${r}-F${r}`,'Total pembayaran akhir = total sebelum diskon dikurangi potongan.']});
+const G=[2,3,4,5,6].map(r=>SH[`6,${r}`]);
+EXP.MAX=[Math.max(...G),'=MAX(G2:G6)','MAX mencari nilai terbesar pada range G2:G6.'];
+EXP.MIN=[Math.min(...G),'=MIN(G2:G6)','MIN mencari nilai terkecil pada range G2:G6.'];
+EXP.AVG=[G.reduce((a,b)=>a+b)/G.length,'=AVERAGE(G2:G6)','AVERAGE menjumlah lalu membagi dengan banyak data pada G2:G6.'];
+const fl=a=>a.flat(9).filter(x=>typeof x==='number'&&!isNaN(x)),sum=a=>fl(a).reduce((x,y)=>x+y,0);
+const FN={SUM:(...a)=>sum(a),AVERAGE:(...a)=>sum(a)/fl(a).length,COUNT:(...a)=>fl(a).length,MAX:(...a)=>Math.max(...fl(a)),MIN:(...a)=>Math.min(...fl(a)),IF:(c,a,b)=>c?a:b};
+const V=(c,r)=>SH[c+','+r],R=(c1,r1,c2,r2)=>{const o=[];for(let c=c1;c<=c2;c++)for(let r=r1;r<=r2;r++)o.push(SH[c+','+r]);return o};
+function ev(src){src=src.trim();
+ if(src[0]!=='=')return parseFloat(src.replace(/Rp|\s|\./gi,'').replace(',','.'));
+ const col=c=>c.charCodeAt(0)-65;
+ let s=src.slice(1).toUpperCase().replace(/[\s$]/g,'').replace(/;/g,',')
+  .replace(/(\d+(?:\.\d+)?)%/g,'($1/100)')
+  .replace(/([A-G])(\d+):([A-G])(\d+)/g,(m,a,b,c,d)=>`R(${col(a)},${b},${col(c)},${d})`)
+  .replace(/([A-G])(\d+)/g,(m,a,b)=>`V(${col(a)},${b})`);
+ if(!/^[\d+\-*\/().,<>=]*$/.test(s.replace(/\b(SUM|AVERAGE|COUNT|MAX|MIN|IF|R|V)(?=\()/g,'')))throw Error('x');
+ s=s.replace(/<>/g,'!=').replace(/([^<>!=])=(?!=)/g,'$1==');
+ return new Function('V','R','SUM','AVERAGE','COUNT','MAX','MIN','IF','return '+s)(V,R,FN.SUM,FN.AVERAGE,FN.COUNT,FN.MAX,FN.MIN,FN.IF)}
+(()=>{const T=$('#rt');
+ let h='<tr><th></th>'+[...L].map(c=>`<th>${c}</th>`).join('')+'</tr><tr><th>1</th>'+['Nama Barang','Harga Satuan','Jumlah Terjual','Diskon','Total Sebelum Diskon','Potongan Diskon','Total Pembayaran'].map(x=>`<td class="hd">${x}</td>`).join('')+'</tr>';
+ D.forEach(([n,hg,j,d],i)=>{const r=i+2;h+=`<tr><th>${r}</th><td>${n}</td><td class="n">${rp(hg)}</td><td class="n">${j}</td><td class="n">${d*100}%</td>`+
+  ['E','F','G'].map(c=>`<td><input class="in" data-k="${c}${r}" aria-label="${c}${r}" placeholder="ketik rumus"></td>`).join('')+'</tr>'});
+ T.innerHTML=h;
+ $('#sm').innerHTML=[['MAX','Omzet tertinggi'],['MIN','Omzet terendah'],['AVG','Omzet rata-rata']].map(([k,l])=>`<label>${l}<input class="in" data-k="${k}" placeholder="ketik rumus"></label>`).join('');
+ const lab=k=>EXP[k]&&({MAX:'Omzet tertinggi',MIN:'Omzet terendah',AVG:'Omzet rata-rata'}[k]||k);
+ $('#chk').onclick=()=>{let ok=0,tot=0,out='';
+  $$('input.in').forEach(i=>{const k=i.dataset.k,e=EXP[k];i.classList.remove('ok','bad');
+   if(!i.value.trim()){return}
+   tot++;let good=false,msg;
+   try{const v=ev(i.value);good=Math.abs(v-e[0])<.01;msg=good?(i.value.trim()[0]==='='?'':' Hasilnya tepat, tetapi sebaiknya pakai rumus agar otomatis.'):`Hasil kamu ${Number.isFinite(v)?Math.round(v*100)/100:'tidak valid'}, seharusnya ${Math.round(e[0]*100)/100}.`}
+   catch{msg='Rumus tidak dapat dibaca. Periksa tanda kurung, koma, dan alamat sel (A-G).'}
+   i.classList.add(good?'ok':'bad');if(good)ok++;
+   out+=`<li class="${good?'ok':'bad'}"><b class="${good?'ok':'bad'}">${lab(k)} ${good?'Benar':'Salah'}</b> ${msg} ${e[2]}${good?'':` Contoh rumus: <code>${e[1]}</code>`}</li>`});
+  $('#score').textContent=tot?`Benar ${ok} dari ${tot} jawaban diperiksa`:'Isi minimal satu jawaban dulu.';$('#fbk').innerHTML=out};
+ $('#rst').onclick=()=>{$$('input.in').forEach(i=>{i.value='';i.classList.remove('ok','bad')});$('#fbk').innerHTML='';$('#score').textContent=''};
+})();
+
+/* ===== MODUL 4 ===== */
+const DM={
+ SUM:{f:'=SUM(B2:D2)',v:[80,75,85],steps:[
+  {hl:[0,1,2],t:'Excel membaca range B2:D2 dan menemukan tiga sel.',op:'Baca range B2:D2'},
+  {hl:[0,1,2],t:'Nilai tiap sel diambil dari memori.',op:'Nilai: 80, 75, 85'},
+  {hl:[0,1],t:'Dua nilai pertama dijumlahkan.',op:'80 + 75 = 155'},
+  {hl:[2],t:'Hasil sementara ditambah nilai terakhir.',op:'155 + 85 = 240'},
+  {hl:[],t:'Hasil akhir ditampilkan pada sel rumus.',op:'Hasil: 240',res:'240'}]},
+ AVERAGE:{f:'=AVERAGE(B2:D2)',v:[80,75,85],steps:[
+  {hl:[0,1,2],t:'Excel membaca range B2:D2.',op:'Baca range B2:D2'},
+  {hl:[0,1,2],t:'Semua nilai dijumlahkan lebih dulu.',op:'80 + 75 + 85 = 240'},
+  {hl:[0,1,2],t:'Excel menghitung banyak sel berisi angka.',op:'Banyak data = 3'},
+  {hl:[],t:'Jumlah dibagi banyak data.',op:'240 / 3 = 80',res:'80'}]},
+ IF:{f:'=IF(F2>=75,"Lulus","Remedial")',v:[80,75],lab:['F2','KKM'],steps:[
+  {hl:[0],t:'Excel mengambil nilai F2.',op:'F2 = 80'},
+  {hl:[0,1],t:'Nilai dibandingkan dengan syarat (75).',op:'80 >= 75 ?'},
+  {hl:[0,1],t:'Syarat bernilai BENAR, sehingga Excel memilih argumen kedua.',op:'Syarat = TRUE'},
+  {hl:[],t:'Argumen kedua ("Lulus") menjadi hasil. Jika F2 kurang dari 75, hasilnya "Remedial".',op:'Hasil: Lulus',res:'Lulus'}]}};
+let cur='SUM',atl;
+function setDemo(k){cur=k;atl&&atl.kill();const d=DM[k];
+ $$('#dm button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===k));
+ $('#af').textContent=d.f;$('#ao').textContent='Operasi: -';$('#at').textContent='Klik "Putar Animasi".';
+ $('#as').innerHTML=d.v.map((v,i)=>`<div class="cell"><small>${d.lab?d.lab[i]:'BCD'[i]+'2'}</small><b>${v}</b></div>`).join('')+'<div class="cell" id="ar"><small>Hasil</small><b>?</b></div>'}
+$('#dm').innerHTML=Object.keys(DM).map(k=>`<button class="btn alt" data-k="${k}" aria-pressed="false">${k}</button>`).join('');
+$('#dm').onclick=e=>{const b=e.target.closest('button');if(b)setDemo(b.dataset.k)};
+$('#arun').onclick=()=>{const d=DM[cur],cells=$$('#as .cell'),rc=$('#ar b');setDemo(cur);
+ if(!hasG){rc.textContent=d.steps.at(-1).res;return}
+ atl=gsap.timeline();
+ d.steps.forEach((s,i)=>{atl.add(()=>{$('#at').textContent=`Langkah ${i+1}: ${s.t}`;$('#ao').textContent='Operasi: '+s.op;
+   gsap.fromTo('#ao',{y:-6,opacity:.4},{y:0,opacity:1,duration:.4});
+   cells.slice(0,-1).forEach((c,j)=>{const on=s.hl.includes(j);gsap.to(c,{scale:on?1.12:1,borderColor:on?'#f5b833':'#cfdcd4',duration:.4})});
+   if(s.res){rc.textContent=s.res;gsap.fromTo('#ar',{scale:1.3,borderColor:'#f5b833'},{scale:1,duration:.7})}},i?'+=1.6':'+=.1')});
+};
+setDemo('SUM');
+</script>
+</body>
+</html>
